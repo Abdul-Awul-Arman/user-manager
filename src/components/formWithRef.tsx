@@ -2,8 +2,10 @@ import { useRef, useState } from "react";
 type props={
     valueForName?:string,
     valueForEmail?:string,
-    valueForRegister?:boolean
-    handlerFunction:Function
+    valueForRegister?:boolean,
+    handlerFunction?:Function,
+    handleShow:Function,
+    isShow:boolean
 }
 type inputsData={
     name?:string,
@@ -11,7 +13,7 @@ type inputsData={
     register?:boolean
 }
 
-export default function From({valueForName,valueForEmail,valueForRegister,handlerFunction}:props){
+export default function From({valueForName,valueForEmail,valueForRegister,handlerFunction,handleShow,isShow}:props){
 
     const [inputsData,setInputsData]=useState<inputsData>({
         name:valueForName || "",
@@ -21,16 +23,26 @@ export default function From({valueForName,valueForEmail,valueForRegister,handle
 
     const nameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
-    const RegisterRef = useRef<HTMLInputElement>(null);
+    const registerRef = useRef<HTMLInputElement>(null);
     
      function handleSubmit(){
         let data={
             name:nameRef.current?.value,
             email:emailRef.current?.value,
-            register:RegisterRef.current?.checked
+            register:registerRef.current?.checked
         };
         
      handlerFunction(data)
+     console.log(data)
+
+     handleShow()
+
+     setInputsData({
+        name:"",
+        email:"",
+        register:false
+     })
+      
 
     };
 
@@ -46,7 +58,7 @@ export default function From({valueForName,valueForEmail,valueForRegister,handle
   
     return(
 
-        <div className=" bg-white/40  text-white m-auto  flex flex-col rounded-md  absolute inset-0 ">
+        <div className={` bg-white/40 ${isShow?"fixed" :"hidden"}   text-white m-auto  flex flex-col rounded-md   inset-0 "`}>
             <div className=" m-auto p-5 bg-black w-[750px] flex justify-center items-center flex-col rounded-md  " >
 
         <label htmlFor="name" className="block mt-4">Name
@@ -75,7 +87,7 @@ export default function From({valueForName,valueForEmail,valueForRegister,handle
             </label>
         <label htmlFor="register" className="flex items-center gap-2">Mark as registered
              <input 
-             ref={RegisterRef}
+             ref={registerRef}
              type="checkbox"
              name="register" 
              onChange={handleOnChange}

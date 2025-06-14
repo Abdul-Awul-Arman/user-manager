@@ -1,10 +1,35 @@
+import { useState } from "react"
+import FormWithRef from "./FormWithRef"
 type user={
+    id:number,
   name:string,
   email:string,
-  isRegistered:boolean
+  isRegistered:boolean,
 }
 
-export default function User({name,email,isRegistered}:user){
+type inputsData={
+    id:number,
+    name:string,
+    email:string,
+    register:boolean
+}
+
+
+export default function User({id,name,email,isRegistered}:user){
+    const [isShow,setShow]=useState(false)
+
+    function handleShow(){
+        setShow((pre)=>!pre)
+      }
+
+      function handlerFunction(data:inputsData,){
+        let userData={
+            ...data
+        }
+
+        console.log(userData);
+        
+      };
    
     const active:React.JSX.Element= <button className="bg-white text-[#030712] px-5 py-1 rounded-md ">Active</button>
     const pending:React.JSX.Element= <button className="bg-red-500 text-white px-5 py-1 rounded-md ">Pending</button>
@@ -21,9 +46,10 @@ export default function User({name,email,isRegistered}:user){
             
             </div >
             <div className="flex  flex-col gap-3 justify-center align-middle mr-15 ">
-            <button   className="cursor-pointer transform transition duration-300 hover:scale-105 bg-white text-[#030712] rounded-md px-6 py-1 text-2xl">Edit</button>
+            <button onClick={handleShow}  className="cursor-pointer transform transition duration-300 hover:scale-105 bg-white text-[#030712] rounded-md px-6 py-1 text-2xl">Edit</button>
             <button   className="cursor-pointer transform transition duration-300 hover:scale-105 bg-white text-[#030712] rounded-md px-6 py-1 text-2xl">Delete</button>
             </div>
+            <FormWithRef valueForName={name} valueForEmail={email} valueForRegister={isRegistered} isShow={isShow} handleShow={handleShow} handlerFunction={handlerFunction}></FormWithRef>
         </div>
     )
 }

@@ -1,9 +1,8 @@
+type props={
+    handleClick:(event: React.MouseEvent<HTMLButtonElement>) => void;
+}
 
-
-export default function Nav(){
-    function handleClick(){
-        console.log("This is click")
-    }
+export default function Nav({handleClick}:props){
     return(
         <nav className="w-full text-white font-ubuntu flex justify-evenly p-7">
             <h1 className="text-2xl uppercase tracking-widest" >User Manager</h1>

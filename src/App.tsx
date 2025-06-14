@@ -1,36 +1,41 @@
 import { useState } from "react";
-import FormWithRef from "./components/formWithRef";
+import FormWithRef from "./components/FormWithRef";
 // import Form from "./components/form"
-import Nav from "./components/nav";
-import User from "./components/user";
+import Nav from "./components/Nav";
+import User from "./components/User";
 type inputsData={
     id:number,
     name:string,
     email:string,
-    registered:boolean
+    register:boolean
 }
-// const users:inputsData[] = [ ];
+const users:inputsData[] = [ ];
 export default function App(){
 
-    const [users,setUsers]=useState<inputsData[]>([])
-    function handlerFunction(data:inputsData){
+    const [isShow,setShow]=useState(false)
+    function handlerFunction(data:inputsData,){
         let userData={
             ...data,
             id:users.length+1
         }
-        setUsers((pre)=>{
-            return [...pre,userData]
-        })
+        users.push(userData)
+
+       
       };
+
+      function handleShow(){
+        setShow((pre)=>!pre)
+      }
+
     return(
         <>
-        <Nav></Nav>
+        <Nav handleClick={handleShow}></Nav>
         {
             users.map((user)=>{
-               return <User name={user.name} email={user.email} isRegistered={user.registered} key={user.id} ></User>
+               return <User name={user.name} email={user.email} id={user.id} isRegistered={user.register} key={user.id}  ></User>
             })
         }
-        <FormWithRef valueForName="arman" valueForRegister={false} valueForEmail="xyz@gmail.com" handlerFunction={handlerFunction}></FormWithRef>
+        <FormWithRef   isShow={isShow} handlerFunction={handlerFunction} handleShow={handleShow}></FormWithRef>
         {/* <Form valueForName="arman" valueForRegister={false} valueForEmail="xyz@gmail.com"></Form> */}
         
         </>
