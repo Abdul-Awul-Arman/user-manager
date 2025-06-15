@@ -1,14 +1,14 @@
 import { useState } from "react"
 import FormWithRef from "./FormWithRef"
 type user={
-    id:number,
+    id?:number,
   name:string,
   email:string,
   isRegistered:boolean,
 }
 
 type inputsData={
-    id:number,
+    id?:number,
     name:string,
     email:string,
     register:boolean
@@ -24,6 +24,7 @@ export default function User({id,name,email,isRegistered}:user){
 
       function handlerFunction(data:inputsData,){
         let userData={
+            id,
             ...data
         }
 
@@ -49,7 +50,7 @@ export default function User({id,name,email,isRegistered}:user){
             <button onClick={handleShow}  className="cursor-pointer transform transition duration-300 hover:scale-105 bg-white text-[#030712] rounded-md px-6 py-1 text-2xl">Edit</button>
             <button   className="cursor-pointer transform transition duration-300 hover:scale-105 bg-white text-[#030712] rounded-md px-6 py-1 text-2xl">Delete</button>
             </div>
-            <FormWithRef valueForName={name} valueForEmail={email} valueForRegister={isRegistered} isShow={isShow} handleShow={handleShow} handlerFunction={handlerFunction}></FormWithRef>
+            <FormWithRef forUpdate={true} valueForName={name} valueForEmail={email} valueForRegister={isRegistered} isShow={isShow} handleShow={handleShow} handlerFunction={handlerFunction}></FormWithRef>
         </div>
     )
 }

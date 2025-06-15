@@ -4,7 +4,7 @@ import FormWithRef from "./components/FormWithRef";
 import Nav from "./components/Nav";
 import User from "./components/User";
 type inputsData={
-    id:number,
+    id?:number,
     name:string,
     email:string,
     register:boolean
@@ -35,7 +35,7 @@ export default function App(){
                return <User name={user.name} email={user.email} id={user.id} isRegistered={user.register} key={user.id}  ></User>
             })
         }
-        <FormWithRef   isShow={isShow} handlerFunction={handlerFunction} handleShow={handleShow}></FormWithRef>
+        <FormWithRef forUpdate={false}   isShow={isShow} handlerFunction={handlerFunction} handleShow={handleShow}></FormWithRef>
         {/* <Form valueForName="arman" valueForRegister={false} valueForEmail="xyz@gmail.com"></Form> */}
         
         </>
