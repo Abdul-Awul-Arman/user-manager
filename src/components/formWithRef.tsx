@@ -82,7 +82,7 @@ export default function From({valueForName,valueForEmail,valueForRegister,handle
 
       createPortal(
         <div onClick={handleValue} className={` bg-white/40 ${isShow?"fixed" :"hidden"}   text-white m-auto  flex flex-col rounded-md   inset-0 "`}>
-        <div onClick={(e)=>e.stopPropagation()} className=" m-auto p-5 bg-black w-[750px] flex justify-center items-center flex-col rounded-md  " >
+        <div onClick={(e)=>e.stopPropagation()} className=" m-auto p-5 bg-black  flex justify-center items-center flex-col rounded-md  " >
 
     <label htmlFor="name" className="block mt-4">Name
         <input
