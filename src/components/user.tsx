@@ -1,34 +1,47 @@
 import { useState } from "react"
-import FormWithRef from "./FormWithRef"
-type user={
-    id?:number,
+import Form from "./Form"
+import type IUsers from "../Types/IUsers"
+import type { TinputsData } from "../Types/TInputsData"
+import updateUser from "../utility/updateUser"
+import fetchUsers from "../utility/fetchUsers"
+type User={
+_id?:string,
   name:string,
   email:string,
   isRegistered:boolean,
-}
-
-type inputsData={
-    id?:number,
-    name:string,
-    email:string,
-    register:boolean
+  setUsers:React.Dispatch<React.SetStateAction<IUsers[]>>
 }
 
 
-export default function User({id,name,email,isRegistered}:user){
+
+export default function User({_id,name,email,isRegistered,setUsers}:User){
     const [isShow,setShow]=useState(false)
+    const [message,setMessage]=useState(false)
 
     function handleShow(){
-        setShow((pre)=>!pre)
+        setShow(true)
       }
 
-      function handlerFunction(data:inputsData,){
-        let userData={
-            id,
-            ...data
-        }
+      async function handlerFunction(oldEmail:string,data:TinputsData){
+        try{
 
-        console.log(userData);
+            const response=await updateUser(oldEmail,data);
+            console.log(response)
+            if(!response.updateSuccess){
+                setMessage(true)
+                setShow(true)
+                
+                return;
+            }
+
+            setMessage(false);
+            setShow(false)
+            
+            const users=await fetchUsers();
+            setUsers(users);
+        }catch(error){
+            console.log(error)
+        }
         
       };
    
@@ -50,7 +63,7 @@ export default function User({id,name,email,isRegistered}:user){
             <button onClick={handleShow}  className="cursor-pointer transform transition duration-300 hover:scale-105 bg-white text-[#030712] rounded-md px-6 py-1 text-2xl">Edit</button>
             <button   className="cursor-pointer transform transition duration-300 hover:scale-105 bg-white text-[#030712] rounded-md px-6 py-1 text-2xl">Delete</button>
             </div>
-            <FormWithRef forUpdate={true} valueForName={name} valueForEmail={email} valueForRegister={isRegistered} isShow={isShow} handleShow={handleShow} handlerFunction={handlerFunction}></FormWithRef>
+            <Form emailValidation={message} forUpdate={true} valueForName={name} valueForEmail={email} valueForRegister={isRegistered} isShow={isShow} handleShow={handleShow} handlerFunction={handlerFunction}></Form>
         </div>
     )
 }
