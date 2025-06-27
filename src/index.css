@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-ubuntu:  "Ubuntu Mono", monospace;
+  --font-ubuntu: 'Ubuntu Mono', monospace;
 }

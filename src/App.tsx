@@ -1,51 +1,45 @@
-import { useEffect, useState } from "react";
-import Form from "./components/Form";
-import Nav from "./components/Nav";
-import User from "./components/User";
-import type IUsers from "./Types/IUsers";
-import fetchUser from "./utility/fetchUsers";
-import type { TinputsData } from "./Types/TInputsData";
-import createUser from "./utility/createUser";
+import { useEffect, useState } from 'react';
+import Form from './components/Form';
+import Nav from './components/Nav';
+import User from './components/User';
+import fetchUser from './hooks/fetchUsers';
+import  useCreateUser from './hooks/useCreateUser';
+import type IUsers from './Types/IUsers';
 
-export default function App(){
+export default function App() {
+  const [isShow, setShow] = useState(false);
+  const [users, setUsers] = useState<IUsers[]>([]);
+  const { createUser,error } = useCreateUser();
+  
 
-    const [isShow,setShow]=useState(false)
-    const [users,setUsers]=useState<IUsers[]>([]);
+  function handleShow() {
+    setShow(true);
+  }
 
-    async function handlerFunction(oldEmail:string|undefined,data:TinputsData){
-        try{
+  async function handlerFunction(data: IUsers){
+   const success= await createUser(data);
+   if(success){
 
-           await createUser(data);
-          const res= await fetchUser();
-          setUsers(res)
+       setShow(false)
+       return;
+    }
+ 
+   setShow(true)
+   
+  }
 
-        }
-        catch(error){
-            console.log(error);
-        }
+  useEffect(() => {
+    fetchUser().then((data) => setUsers(data));
+  }, []);
 
-     };
-
-      function handleShow(){
-        setShow((pre)=>!pre)
-      };
-
-      useEffect(()=>{
-       
-         fetchUser().then((data)=>setUsers(data));
-        
-      },[]);
-
-    return(
-        <>
-        <Nav handleClick={handleShow}></Nav>
-        {
-            users.length&&users.map((user)=>{
-               return <User name={user.name} email={user.email} _id={user._id} isRegistered={user.isRegistered} key={user._id} setUsers={setUsers} ></User>
-            })
-        }
-        <Form forUpdate={false}   isShow={isShow} handlerFunction={handlerFunction} handleShow={handleShow}></Form>
-       
-        </>
-    )
+  return (
+    <>
+      <Nav handleClick={handleShow}></Nav>
+      {users.length &&
+        [...users].reverse().map((user) => {
+          return <User name={user.name} email={user.email} _id={user._id} isRegistered={user.isRegistered} key={user._id} setUsers={setUsers}></User>;
+        })}
+      <Form setShow={setShow} error={error}  forUpdate={false} isShow={isShow} handlerFunction={handlerFunction} ></Form>
+    </>
+  );
 }
