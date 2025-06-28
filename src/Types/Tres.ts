@@ -1,7 +1,9 @@
 import type IUsers from "./IUsers";
 
 export  type res = {
-  createSuccess:boolean,
-  message:string,
-  user:IUsers
+  deleteSuccess?:boolean;
+  createSuccess?: boolean;
+  updateSuccess?: boolean;
+  message: string;
+  user: IUsers;
 };

@@ -26,16 +26,16 @@ export default function useCreateUser() {
         body: JSON.stringify(data),
       });
 
-      const backResponse: res = await result.json();
+      const serverResponse: res = await result.json();
 
 
-      if(!result.ok || !backResponse.createSuccess){
-        setResponse(backResponse)
-        throw new Error(backResponse?.message||`Request Failed With Status${result.status}`)
+      if(!result.ok || !serverResponse.createSuccess){
+        setResponse(serverResponse)
+        throw new Error(serverResponse?.message||`Request Failed With Status${result.status}`)
       }
       
-      setResponse(backResponse);
-      return true;
+      setResponse(serverResponse);
+      return true;  
 
     } catch (error: any) {
       setError(error instanceof Error ? error : new Error('Something is wrong!!'));
