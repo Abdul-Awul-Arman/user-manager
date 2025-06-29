@@ -15,7 +15,6 @@ export default function useUpdateUsers() {
         setError(new Error(`You are currently offline. Please check your connection.`));
         return;
       }
-     
 
       const result = await fetch(`http://localhost:4000/users/update?email=${email}`, {
         method: 'PATCH',
