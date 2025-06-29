@@ -20,7 +20,7 @@ export default function useGetUsers() {
         setErrorGetUsers(new Error(`You are currently offline. Please check your connection.`));
         return;
       }
-      const result = await fetch('http://localhost:4000/users');
+      const result = await fetch('https://user-management-server-gamma-blond.vercel.app/users');
 
       let status = result.status;
 

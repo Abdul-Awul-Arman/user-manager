@@ -21,6 +21,7 @@ export default function User({ name, email, isRegistered, fetchAndSetUsers }: Us
 
     if (success) {
       fetchAndSetUsers();
+      setShow(false)
       return true;
     }
     setShow(true);

@@ -17,12 +17,12 @@ export default function useDeleteUsers() {
       }
      
 
-      const result = await fetch(`http://localhost:4000/users/delete?email=${email}`, {
+      const result = await fetch(`https://user-management-server-gamma-blond.vercel.app/users/delete?email=${email}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({email}),
+        body: JSON.stringify({ email }),
       });
 
       const serverResponse: res = await result.json();

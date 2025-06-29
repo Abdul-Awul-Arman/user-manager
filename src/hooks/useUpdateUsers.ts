@@ -16,7 +16,7 @@ export default function useUpdateUsers() {
         return;
       }
 
-      const result = await fetch(`http://localhost:4000/users/update?email=${email}`, {
+      const result = await fetch(`https://user-management-server-gamma-blond.vercel.app/users/update?email=${email}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

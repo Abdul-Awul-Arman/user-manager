@@ -18,7 +18,7 @@ export default function useCreateUser() {
         return;
       }
       
-      const result = await fetch('http://localhost:4000/users/create-user', {
+      const result = await fetch('https://user-management-server-gamma-blond.vercel.app/users/create-user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
