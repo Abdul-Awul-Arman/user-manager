@@ -40,6 +40,7 @@ export default function Form({ setShow, error, valueForName, valueForEmail, valu
   }
 
   async function handleSubmit() {
+    setErrorMessage('')
     let data = {
       name: nameRef.current?.value.trim() ?? '',
       email: emailRef.current?.value.trim() ?? '',

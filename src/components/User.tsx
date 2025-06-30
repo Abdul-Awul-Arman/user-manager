@@ -3,6 +3,7 @@ import type IUsers from '../Types/IUsers';
 import useDeleteUsers from '../hooks/useDeleteUser';
 import useUpdateUsers from '../hooks/useUpdateUsers';
 import Form from './Form';
+import Modal from './Modal';
 type User = {
   _id?: string;
   name: string;
@@ -13,6 +14,7 @@ type User = {
 
 export default function User({ name, email, isRegistered, fetchAndSetUsers }: User) {
   const [isShow, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { updateUser, error } = useUpdateUsers();
   const { deleteUser } = useDeleteUsers();
 
@@ -39,6 +41,8 @@ export default function User({ name, email, isRegistered, fetchAndSetUsers }: Us
     }
   }
 
+
+
   const active: React.JSX.Element = <button className="bg-white text-[#030712] px-5 py-1 rounded-md ">Active</button>;
   const pending: React.JSX.Element = <button className="bg-red-500 text-white px-5 py-1 rounded-md ">Pending</button>;
 
@@ -58,7 +62,7 @@ export default function User({ name, email, isRegistered, fetchAndSetUsers }: Us
           Edit
         </button>
         <button
-          onClick={handleDelete}
+          onClick={()=>setShowModal(true)}
           className="cursor-pointer transform transition duration-300 hover:scale-105 bg-white text-[#030712] rounded-md px-6 py-1 text-2xl"
         >
           Delete
@@ -74,6 +78,7 @@ export default function User({ name, email, isRegistered, fetchAndSetUsers }: Us
         setShow={setShow}
         handlerFunction={handlerFunction}
       ></Form>
+      <Modal handlerFunction={handleDelete} showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 }

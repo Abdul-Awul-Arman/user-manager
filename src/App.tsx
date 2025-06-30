@@ -1,4 +1,4 @@
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Form from './components/Form';
 import Nav from './components/Nav';
 import User from './components/User';
@@ -12,9 +12,9 @@ export default function App() {
   const { createUser, error } = useCreateUser();
   const { getUsers, getUsersResponse } = useGetUsers();
 
-   async function fetchAndSetUsers(){
-    const users=await getUsers();
-    setUsers(users ?? [])
+  async function fetchAndSetUsers() {
+    const users = await getUsers();
+    setUsers(users ?? []);
   }
 
   function handleShow() {
@@ -36,16 +36,17 @@ export default function App() {
 
   useEffect(() => {
     fetchAndSetUsers();
-  }, [  ]);
+  }, []);
 
-  console.log(users)
 
   return (
     <>
       <Nav handleClick={handleShow}></Nav>
       {users.length ? (
         [...users].reverse().map((user) => {
-          return <User name={user.name} email={user.email} _id={user._id} isRegistered={user.isRegistered} key={user._id} fetchAndSetUsers={fetchAndSetUsers}></User>;
+          return (
+            <User name={user.name} email={user.email} _id={user._id} isRegistered={user.isRegistered} key={user._id} fetchAndSetUsers={fetchAndSetUsers}></User>
+          );
         })
       ) : (
         <h1 className="text-white block text-center">{getUsersResponse?.message}</h1>
