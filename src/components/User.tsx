@@ -14,7 +14,7 @@ type User = {
 
 export default function User({ name, email, isRegistered, fetchAndSetUsers }: User) {
   const [isShow, setShow] = useState(false);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const { updateUser, error } = useUpdateUsers();
   const { deleteUser } = useDeleteUsers();
 
