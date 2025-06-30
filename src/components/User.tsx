@@ -38,7 +38,9 @@ export default function User({ name, email, isRegistered, fetchAndSetUsers }: Us
     const success = await deleteUser(email);
     if (success) {
       fetchAndSetUsers();
+      setShowModal(false)
     }
+    setShowModal(true)
   }
 
 
