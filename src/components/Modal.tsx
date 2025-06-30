@@ -8,10 +8,13 @@ export default function Modal({ handlerFunction, showModal, setShowModal }: Prop
   return createPortal(
     <div
       onClick={() => setShowModal(false)}
-      className={` z-50 bg-white/40 ${showModal ? 'fixed' : 'hidden'}   text-white m-auto  flex justify-center items-center rounded-md   inset-0 "`}
+      className={` z-50 bg-white/40 ${showModal ? ' opacity-100 pointer-events-auto' : ' pointer-events-none opacity-0'} fixed duration-300 ease-in  text-white m-auto  flex justify-center items-center rounded-md   inset-0 "`}
     >
       <div onClick={(e) => e.stopPropagation()} className="text-center bg-black w-[500px] h-[300px] rounded-2xl flex flex-col justify-center items-center">
-        <p className='text-[30px] text-red-500'> Do You Want <br /> To Delete The User</p>
+        <p className="text-[30px] text-red-500">
+          {' '}
+          Do You Want <br /> To Delete The User
+        </p>
         <div className="">
           <button
             onClick={handlerFunction}

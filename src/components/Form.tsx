@@ -79,7 +79,7 @@ export default function Form({ setShow, error, valueForName, valueForEmail, valu
     }));
   };
   return createPortal(
-    <div onClick={handleValue} className={` z-50 bg-white/40 ${isShow ? 'fixed' : 'hidden'}   text-white m-auto  flex flex-col rounded-md   inset-0 "`}>
+    <div onClick={handleValue} className={` z-50 bg-white/40 ${isShow ? ' pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} fixed duration-300 ease-in-out  text-white m-auto  flex flex-col rounded-md   inset-0 "`}>
       <div onClick={(e) => e.stopPropagation()} className=" m-auto p-5 bg-black  flex justify-center items-center flex-col rounded-md  ">
         <label htmlFor="name" className="block mt-4">
           Name
